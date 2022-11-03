@@ -10,8 +10,7 @@ const T = new Twit({
 });
 
 const tweet = () => {
-	const text =
-		'https://imgur.com/a/RARaDXm';
+	const text = "This is the contents of my tweet"
 
 	const onFinish = (err, reply) => {
 		if (err) {

@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/hanswatkins/twitter-portal#readme",
 	"dependencies": {
-		"twit": "^2.2.11"
+		"twit": "^2.2.11",
+		"twitter": "^1.7.1"
 	}
 }
