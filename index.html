@@ -51,12 +51,38 @@
                                 <label hidden for="tweet" class="form-label"></label>
                                 <textarea class="form-control" id="tweet"></textarea>
                             </div>
-                            <button type="button" class="btn btn-primary">Send</button>
+                            <button type="button" class="btn btn-primary" id="button">Send</button>
                         </div>
                     </div>
 				</div>
 			
 			</div>
 		</div>
+<script>
+    const button = document.querySelector('button')
+    
+    button.onclick = () => {
+        const tweet = document.querySelector('#tweet').value;
+        console.log('Tweet: ', tweet);
+
+        fetch('/twitter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tweet
+            })
+        })
+        .then((res) => res.json())
+        .then(() => {
+            alert('Tweet was successfully sent!')
+        })
+        .catch(() => alert('Uh oh, an error occurred'))
+
+    }
+
+</script>
+
 	</body>
 </html>

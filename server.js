@@ -2,8 +2,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 const Twitter = require('twitter');
 const express = require('express');
-const app = express();
 const path = require('path');
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 const client = new Twitter({
 	consumer_key: process.env.API_KEY,
@@ -13,17 +17,28 @@ const client = new Twitter({
 });
 
 //POST request
-const twitterMessage = 'testing -- ignore';
-const params = { status: twitterMessage };
-
-// client.post('statuses/update', params, function (error, tweet, response) {
-// 	if (error) throw error;
-// 	console.log(tweet); // Tweet body.
-// 	console.log(response); // Raw response object.
-// });
 
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, './index.html'));
+});
+
+app.post('/twitter', (req, res) => {
+	const tweet = req.body.tweet;
+
+	const params = { status: tweet };
+
+	client.post('statuses/update', params, function (error, tweet, response) {
+		if (error) {
+			res.status(500).json({
+				message: 'We were not able to tweet this for you',
+			});
+			return;
+		}
+
+		res.json({
+			message: 'Tweet was successfully sent',
+		});
+	});
 });
 
 // GET REQUEST
