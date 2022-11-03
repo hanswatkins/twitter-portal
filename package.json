@@ -1,0 +1,24 @@
+{
+	"name": "twitter-portal",
+	"version": "1.0.0",
+	"description": "",
+	"main": "script.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node ./script.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hanswatkins/twitter-portal.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/hanswatkins/twitter-portal/issues"
+	},
+	"homepage": "https://github.com/hanswatkins/twitter-portal#readme",
+	"dependencies": {
+		"twit": "^2.2.11"
+	}
+}
