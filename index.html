@@ -37,34 +37,107 @@
 	box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
 }
 
+span {
+    position: absolute;
+    left: 199px;
+    top: 160px;
+    font-size: 14px;
+}
+
     </style>
 	<body>
-		<div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
-			<div class="row">
-				
-				<div class="col-14">
-					<div class="card">
+        <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            <div class="row">
+                
+                <div class="col-14">
+                    <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Twitter Portal</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Send tweets from this simple UI!</h5>
-                            <div class="mb-3">
-                                <label hidden for="tweet" class="form-label"></label>
-                                <textarea class="form-control" id="tweet"></textarea>
+                                <div class="mb-3">
+                                    <label hidden for="tweet" class="form-label"></label>
+                                    <textarea name='character-counter' class="form-control" id="tweet" placeholder="What's happening?"></textarea>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="button">Send</button>
+                                <span class="text-muted"></span>
                             </div>
-                            <button type="button" class="btn btn-primary" id="button">Send</button>
-                        </div>
-                    </div>
-				</div>
+                            
+
+	
 			
-			</div>
-		</div>
+			
+	</div>
+
+                        </div>
+                    
+                    </div>
+                    
+                </div>
+            </div>
 <script>
-    const button = document.querySelector('button')
+
+    /*
+ * CharacterCounter
+ * @param textareaEl = textarea html element
+ * @param remainingEl = element that includes the remaining value, updates with each event fire (keyUp)
+ */
+class CharacterCounter {
+	constructor(textareaEl, remainingEl) {
+		this.element = textareaEl;
+		this.remainingEl = remainingEl;
+		this.max = this.element.getAttribute("maxlength");
+		this.remainingChars = this.max;
+		this.currCounter = this.element.value.length;
+		this.setEvents();
+	}
+
+	/* calculates the remaining characters
+	 * @param event = event triggered from event listener
+	 */
+	calc(event) {
+		this.remainingChars =  this.element.value.length - 240;
+		this.updateRemainingEl();
+	}
+
+	/* sets the events that will be attacked on the element
+	 */
+	setEvents() {
+		this.element.addEventListener("keyup", (event) => this.calc(event));
+	}
+
+	/* updates the remainingEl markup with the current remaining char value
+	 */
+	updateRemainingEl() {
+		this.remainingEl.textContent = this.max - this.remainingChars;
+	}
+}
+
+var textarea = document.getElementsByName("character-counter")[0];
+var remaining = document.querySelector("span");
+characterCounter = new CharacterCounter(textarea, remaining);
+
+
+    
+
+    let textArea = document.querySelector('#tweet');
+    const button = document.querySelector('button');
+    
+    const myTimeout = () => {
+        document.querySelector('#button').classList.replace('btn-danger', 'btn-primary'),
+        document.querySelector('#button').classList.replace('btn-success', 'btn-primary'),
+        document.querySelector('#button').innerHTML = 'Send';
+        
+    };
+
+    const clearTextbox = () => {
+        document.querySelector('#tweet').value = '';
+    }
+
     
     button.onclick = () => {
-        const tweet = document.querySelector('#tweet').value;
+        const tweet = textArea.value;
         console.log('Tweet: ', tweet);
-
+        
         fetch('/twitter', {
             method: 'POST',
             headers: {
@@ -76,11 +149,28 @@
         })
         .then((res) => res.json())
         .then(() => {
-            alert('Tweet was successfully sent!')
-        })
-        .catch(() => alert('Uh oh, an error occurred'))
+            
+            {(document.querySelector('#button').innerHTML = 'Sent!'),
+            
+            (document.querySelector("#button").classList.replace('btn-primary', 'btn-success')), 
+            
+            setTimeout(myTimeout, 3000)
 
-    }
+            setTimeout(clearTextbox, 3000)
+        }
+        
+    })
+    .catch(() => {(document.querySelector('#button').innerHTML = 'Error'),
+    
+    (document.querySelector("#button").classList.replace('btn-primary', 'btn-danger')),
+    
+    setTimeout(myTimeout, 3000)
+
+    setTimeout(clearTextbox, 3000);
+    
+})
+
+}
 
 </script>
 
