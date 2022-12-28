@@ -12,43 +12,40 @@
 			crossorigin="anonymous"
 		/>
 	</head>
-    <style>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
+    .card::before {
+        content: '';
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: calc(100% - 1px);
+        left: 0;
+        height: 1px;
+        background-color: black;
+        border-radius: 50%;
+        z-index: -1;
+        transform: rotateX(80deg);
+        -webkit-box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
+        -moz-box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
+        box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
+    }
 
-.card::before {
-	content: '';
-	display: block;
-	width: 100%;
-	position: absolute;
-	top: calc(100% - 1px);
-	left: 0;
-	height: 1px;
-	background-color: black;
-	border-radius: 50%;
-	z-index: -1;
-	transform: rotateX(80deg);
-	-webkit-box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
-	-moz-box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
-	box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 1);
-}
-
-span {
-    position: absolute;
-    left: 199px;
-    top: 160px;
-    font-size: 14px;
-}
-
-    </style>
-	<body>
+    span {
+        position: absolute;
+        left: 199px;
+        top: 160px;
+        font-size: 14px;
+    }
+</style>
+<body>
         <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
             <div class="row">
-                
                 <div class="col-14">
                     <div class="card">
                         <div class="card-body">
@@ -61,26 +58,19 @@ span {
                                 <button type="button" class="btn btn-primary" id="button">Send</button>
                                 <span class="text-muted"></span>
                             </div>
-                            
-
-	
-			
-			
-	</div>
-
-                        </div>
-                    
+	                    </div>
                     </div>
-                    
-                </div>
+                </div>   
             </div>
+        </div>
 <script>
 
-    /*
+/*
  * CharacterCounter
  * @param textareaEl = textarea html element
  * @param remainingEl = element that includes the remaining value, updates with each event fire (keyUp)
  */
+
 class CharacterCounter {
 	constructor(textareaEl, remainingEl) {
 		this.element = textareaEl;
@@ -99,7 +89,7 @@ class CharacterCounter {
 		this.updateRemainingEl();
 	}
 
-	/* sets the events that will be attacked on the element
+	/* sets the events that will be attached on the element
 	 */
 	setEvents() {
 		this.element.addEventListener("keyup", (event) => this.calc(event));
@@ -116,9 +106,6 @@ var textarea = document.getElementsByName("character-counter")[0];
 var remaining = document.querySelector("span");
 characterCounter = new CharacterCounter(textarea, remaining);
 
-
-    
-
     let textArea = document.querySelector('#tweet');
     const button = document.querySelector('button');
     
@@ -133,7 +120,6 @@ characterCounter = new CharacterCounter(textarea, remaining);
         document.querySelector('#tweet').value = '';
     }
 
-    
     button.onclick = () => {
         const tweet = textArea.value;
         console.log('Tweet: ', tweet);
